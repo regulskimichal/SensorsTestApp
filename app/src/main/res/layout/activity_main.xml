@@ -15,13 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/navFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/mobile_navigation" />
+            app:navGraph="@navigation/mobile_navigation"
+            tools:ignore="FragmentTagUsage" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -36,7 +38,7 @@
             android:id="@+id/nav"
             style="@style/Widget.MaterialComponents.BottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
             app:layout_insetEdge="bottom"

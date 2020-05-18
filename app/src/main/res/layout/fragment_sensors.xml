@@ -18,7 +18,7 @@
             android:id="@+id/chipGroupSensors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/margin"
             app:entries="@{viewModel.sensorNames}">
 
         </com.google.android.material.chip.ChipGroup>

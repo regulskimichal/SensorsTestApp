@@ -2,15 +2,12 @@ package pl.michalregulski.sensors
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Intent
 import android.os.Bundle
-import android.view.View.INVISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.*
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -32,10 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val navController by lazy {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navFragment) as NavHostFragment
-        navHostFragment.navController
-    }
+    private val navigationController by lazy { findNavController(R.id.navFragment) }
 
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
@@ -58,17 +52,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation(
         bottomNavigationView: BottomNavigationView
     ) {
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        bottomNavigationView.setupWithNavController(navController)
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_sensors -> navController.navigate(R.id.fragment_sensors)
-                R.id.nav_gps -> navController.navigate(R.id.fragment_gps)
-                R.id.nav_game -> navController.navigate(R.id.fragment_game)
-            }
-            true
-        }
-
+        setupActionBarWithNavController(navigationController, appBarConfiguration)
+        bottomNavigationView.setupWithNavController(navigationController)
     }
 
     private fun setupFab(fab: FloatingActionButton) {
@@ -92,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navigationController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragment_gps) {
                 fab.show()
             } else {

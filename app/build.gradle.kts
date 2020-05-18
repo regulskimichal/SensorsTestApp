@@ -3,12 +3,14 @@ import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsFeature.PARCELIZE
 val kotlinVersion: String by project
 val koinVersion: String by project
 val gradleAndroidPluginVersion: String by project
+val navVersion: String by project
 
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -68,10 +70,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 
-    implementation("androidx.navigation:navigation-fragment:2.2.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.2")
-    implementation("androidx.navigation:navigation-ui:2.2.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.2")
+    implementation("androidx.navigation:navigation-fragment:$navVersion")
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     kapt("androidx.databinding:databinding-compiler:$gradleAndroidPluginVersion")
 

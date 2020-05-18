@@ -2,8 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="Sensors.app" target="1.8" />
-      <module name="Sensors.unityLibrary" target="1.8" />
       <module name="SensorsTestApp.app" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_sensors"
+        android:id="@+id/fragment_sensors"
         android:icon="@drawable/ic_sensor"
         android:title="@string/label_sensors" />
 
     <item
-        android:id="@+id/nav_gps"
+        android:id="@+id/fragment_gps"
         android:icon="@drawable/ic_gps"
         android:title="@string/label_gps" />
 
     <item
-        android:id="@+id/nav_game"
+        android:id="@+id/fragment_game"
         android:icon="@drawable/ic_game"
         android:title="@string/label_game" />
 
