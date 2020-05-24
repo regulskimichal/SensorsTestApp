@@ -1,12 +1,9 @@
 package pl.michalregulski.sensors
 
 import android.os.Bundle
-import android.text.InputType.TYPE_NULL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import pl.michalregulski.sensors.databinding.GpsFragmentBinding

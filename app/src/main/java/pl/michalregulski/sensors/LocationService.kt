@@ -19,7 +19,7 @@ class LocationService(
         try {
             return locationClient.getLastLocationAsync()
         } catch (ex: Exception) {
-            Log.wtf(MainActivity::class.simpleName, ex.message, ex)
+            Log.wtf(TAG, ex.message, ex)
         }
         return null
     }
@@ -33,5 +33,9 @@ class LocationService(
                 continuation.resumeWithException(it)
             }
         }
+
+    companion object {
+        private val TAG = LocationService::class.simpleName
+    }
 
 }

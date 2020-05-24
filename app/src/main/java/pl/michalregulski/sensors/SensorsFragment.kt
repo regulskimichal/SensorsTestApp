@@ -1,6 +1,5 @@
 package pl.michalregulski.sensors
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,9 +25,9 @@ class SensorsFragment : Fragment(R.layout.fragment_sensors) {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         viewModel.updateSensors()
-        super.onAttach(context)
+        super.onActivityCreated(savedInstanceState)
     }
 
 }

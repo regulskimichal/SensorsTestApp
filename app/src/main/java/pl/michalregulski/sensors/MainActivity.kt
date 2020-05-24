@@ -59,7 +59,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             if (checkSelfPermission(this, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED ||
-                checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED) {
+                checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED
+            ) {
                 viewModel.updateLocation()
             } else {
                 if (shouldShowRequestPermissionRationale(this, ACCESS_FINE_LOCATION)) {
