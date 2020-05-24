@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import pl.michalregulski.sensors.databinding.GpsFragmentBinding
 
-class GpsFragment : Fragment(R.layout.fragment_gps) {
+class GpsFragment : Fragment() {
 
     private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: GpsFragmentBinding

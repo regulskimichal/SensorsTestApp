@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import pl.michalregulski.sensors.databinding.SensorsFragmentBinding
 
-class SensorsFragment : Fragment(R.layout.fragment_sensors) {
+class SensorsFragment : Fragment() {
 
     private val viewModel: MainActivityViewModel by sharedViewModel()
     private lateinit var binding: SensorsFragmentBinding

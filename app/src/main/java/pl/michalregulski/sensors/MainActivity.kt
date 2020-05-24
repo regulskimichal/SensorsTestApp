@@ -7,14 +7,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.*
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.michalregulski.sensors.databinding.MainActivityBinding
 
@@ -29,31 +28,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val navigationController by lazy { findNavController(R.id.navFragment) }
-
-    private val appBarConfiguration by lazy {
-        AppBarConfiguration(
-            setOf(
-                R.id.fragment_sensors,
-                R.id.fragment_gps,
-                R.id.fragment_game
-            )
-        )
-    }
+    private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setupKoinFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupNavigation(binding.nav)
         setupFab(binding.fab)
+        if (savedInstanceState == null) {
+            setupBottomNavigationBar()
+        }
     }
 
-    private fun setupNavigation(
-        bottomNavigationView: BottomNavigationView
-    ) {
-        setupActionBarWithNavController(navigationController, appBarConfiguration)
-        bottomNavigationView.setupWithNavController(navigationController)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupBottomNavigationBar()
+    }
+
+    // Code taken from: github.com/android/architecture-components-samples/tree/master/NavigationAdvancedSample
+    private fun setupBottomNavigationBar() {
+        val navGraphIds = listOf(R.navigation.sensors, R.navigation.gps, R.navigation.game)
+
+        val controller =
+            findViewById<BottomNavigationView>(R.id.nav).setupWithNavController(
+                navGraphIds = navGraphIds,
+                fragmentManager = supportFragmentManager,
+                containerId = R.id.navFragment,
+                intent = intent
+            )
+
+        controller.observe(this, Observer { navController ->
+            setupActionBarWithNavController(navController)
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.fragment_gps) {
+                    binding.fab.show()
+                } else {
+                    binding.fab.hide()
+                }
+            }
+        })
+        currentNavController = controller
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
     }
 
     private fun setupFab(fab: FloatingActionButton) {
@@ -75,14 +92,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     requestPermissions()
                 }
-            }
-        }
-
-        navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fragment_gps) {
-                fab.show()
-            } else {
-                fab.hide()
             }
         }
     }

@@ -1,7 +1,6 @@
 package pl.michalregulski.sensors
 
 import android.app.Application
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.LocationServices
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +15,6 @@ class Application : Application() {
     private val module = module {
         single { LocationServices.getFusedLocationProviderClient(androidApplication()) }
         single { LocationService(get()) }
-        fragment { NavHostFragment() }
         fragment { SensorsFragment() }
         fragment { GpsFragment() }
         fragment { GameFragment() }
